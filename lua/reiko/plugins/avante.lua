@@ -10,7 +10,7 @@ return {
       vendors = {
         ollama = {
           api_key_name = "", 
-          endpoint = "http://127.0.0.1:11434/api",
+          endpoint = "http://localhost:11434/api",
           model = "hf.co/bartowski/Qwen2.5.1-Coder-7B-Instruct-GGUF:Q8_0",
           behaviour = {
             auto_focus_sidebar = true,

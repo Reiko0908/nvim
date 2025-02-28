@@ -8,6 +8,6 @@ return {
   'sainnhe/sonokai', 
   'GustavoPrietoP/doom-themes.nvim',
   'Mofiqul/vscode.nvim',
-  'catppuccin/nvim',
+  'folke/tokyonight.nvim',
   event = "VeryLazy",
 }
