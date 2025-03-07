@@ -19,17 +19,13 @@ return {
     { "<leader>a", "", desc = "+ai", mode = { "n", "v" } },
     {
       "<leader>aa",
-      function()
-        return require("CopilotChat").toggle()
-      end,
+      ":CopilotChatToggle<CR>",
       desc = "Toggle (CopilotChat)",
       mode = { "n", "v" },
     },
     {
       "<leader>ax",
-      function()
-        return require("CopilotChat").reset()
-      end,
+      ":CopilotChatClear<CR>",
       desc = "Clear (CopilotChat)",
       mode = { "n", "v" },
     },
@@ -49,96 +45,115 @@ return {
     },
     {
       "<leader>ap",
-      function()
-        require("CopilotChat").select_prompt()
-      end,
+      ":CopilotChatPrompts<CR>",
       desc = "Prompt Actions (CopilotChat)",
       mode = { "n", "v" },
     },
     {
-        "<leader>ac",
-        function()
-            return require("CopilotChat").toggle()
-        end,
-        desc = "Chat with Copilot",
-        mode = { "n", "v" },
+      "<leader>ac",
+      ":CopilotChat<CR>",
+      desc = "Chat with Copilot",
+      mode = { "n", "v" },
     },
     {
-        "<leader>ae",
-        function()
-            return require("CopilotChat").explain()
-        end,
-        desc = "Explain Code",
-        mode = { "v" },
+      "<leader>ae",
+      ":CopilotChatExplain<CR>",
+      desc = "Explain Code",
+      mode = { "v" },
     },
     {
-        "<leader>ar",
-        function()
-            return require("CopilotChat").review()
-        end,
-        desc = "Review Code",
-        mode = { "v" },
+      "<leader>ar",
+      ":CopilotChatReview<CR>",
+      desc = "Review Code",
+      mode = { "v" },
     },
     {
-        "<leader>af",
-        function()
-            return require("CopilotChat").fix()
-        end,
-        desc = "Fix Code Issues",
-        mode = { "v" },
+      "<leader>af",
+      ":CopilotChatFix<CR>",
+      desc = "Fix Code Issues",
+      mode = { "v" },
     },
     {
-        "<leader>ao",
-        function()
-            return require("CopilotChat").optimize()
-        end,
-        desc = "Optimize Code",
-        mode = { "v" },
+      "<leader>ao",
+      ":CopilotChatOptimize<CR>",
+      desc = "Optimize Code",
+      mode = { "v" },
     },
     {
-        "<leader>ad",
-        function()
-            return require("CopilotChat").docs()
-        end,
-        desc = "Generate Docs",
-        mode = { "v" },
+      "<leader>ad",
+      ":CopilotChatDocs<CR>",
+      desc = "Generate Docs",
+      mode = { "v" },
     },
     {
-        "<leader>at",
-        function()
-            return require("CopilotChat").tests()
-        end,
-        desc = "Generate Tests",
-        mode = { "v" },
+      "<leader>at",
+      ":CopilotChatTests<CR>",
+      desc = "Generate Tests",
+      mode = { "v" },
     },
     {
-        "<leader>am",
-        function()
-            return require("CopilotChat").commit()
-        end,
-        desc = "Generate Commit Message",
-        mode = { "v" },
+      "<leader>am",
+      ":CopilotChatCommit<CR>",
+      desc = "Generate Commit Message",
+      mode = { "v" },
     },
     {
-        "<leader>as",
-        function()
-            return require("CopilotChat").commit_selection()
-        end,
-        desc = "Generate Commit for Selection",
-        mode = { "v" },
+      "<leader>as",
+      ":CopilotChatCommit<CR>",
+      desc = "Generate Commit for Selection",
+      mode = { "v" },
     },
     {
-        "<leader>an",
-        function()
-            return require("CopilotChat").rename()
-        end,
-        desc = "Rename the variable",
-        mode = { "v" },
+      "<leader>an",
+      ":CopilotChatRename<CR>",
+      desc = "Rename the variable",
+      mode = { "v" },
+    },
+    {
+      "<leader>al",
+      ":CopilotChatList<CR>",
+      desc = "List all the available commands",
+      mode = { "n", "v" },
+    },
+    {
+      "<leader>ah",
+      ":CopilotChatHelp<CR>",
+      desc = "Show help",
+      mode = { "n", "v" },
+    },
+    {
+      "<leader>aw",
+      ":CopilotChatWiki<CR>",
+      desc = "Open Wiki",
+      mode = { "n", "v" },
+    },
+    {
+      "<leader>ai",
+      ":CopilotChatInfo<CR>",
+      desc = "Show Info",
+      mode = { "n", "v" },
+    },
+    {
+      "<leader>av",
+      ":CopilotChatVersion<CR>",
+      desc = "Show Version",
+      mode = { "n", "v" },
+    },
+    {
+      "<leader>ad",
+      ":CopilotChatDebug<CR>",
+      desc = "Debug",
+      mode = { "n", "v" },
+    },
+    {
+      "<leader>a?",
+      ":CopilotChatModels<CR>",
+      desc = "Choose Models",
+      mode = { "n" },
     },
   },
   config = function(_, opts)
     local chat = require("CopilotChat")
-
     vim.api.nvim_create_autocmd("BufEnter", {
       pattern = "copilot-chat",
       callback = function()
