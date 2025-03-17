@@ -28,5 +28,3 @@ opt.timeoutlen = 600
 
 require("reiko.lazy")
 require("reiko.core")
-
-
