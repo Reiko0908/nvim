@@ -41,8 +41,8 @@ return {
 
       dashboard.button("o", "💾  Recently opened files", ":silent Telescope oldfiles<CR>"),
       dashboard.button("c", "⚙   Vim config", ":silent Telescope find_files cwd=C:/Users/Reiko/AppData/Local/nvim<CR>"),
-      dashboard.button("w", "⚙   Wezterm config", ":silent e C:/Users/Reiko/.wezterm.lua<CR>"),
-      dashboard.button("s", "🗑️  Delete shada", ":!del C:\\Users\\Reiko\\AppData\\Local\\nvim-data\\shada /Q<CR>"),
+      dashboard.button("w", "⚙   Wezterm config", ":silent Telescope find_files cwd=C:/Users/Reiko/.config<CR>"),
+      dashboard.button("r", "🗑️  Delete shada", ":!del C:\\Users\\Reiko\\AppData\\Local\\nvim-data\\shada /Q<CR>"),
       dashboard.button("a", "🗑️  Delete swap", ":!del C:\\Users\\Reiko\\AppData\\Local\\nvim-data\\swap /Q<CR>"),
       dashboard.button("t", "🖍️  Change theme", ":silent Telescope colorscheme<CR>"),
     }

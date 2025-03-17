@@ -39,11 +39,6 @@ local function monitor_output()
   end
 end 
 -- ---- ARDUINO -------------------------------------------------------------------------------------------------------------------------------------
-local function check_arduino_boards()
-  local full_cmd = "arduino-cli board list"
-  vim.cmd("w | FloatermNew --position=topright --autoclose=0 --width=0.3 --height=0.4 "..full_cmd)
-end
-
 local function config_arduino()
   local project_path = vim.fn.expand("%:p")
   print "Select COM port"
@@ -272,7 +267,6 @@ return {
   config_arduino = config_arduino,
   compile_arduino = compile_arduino,
   upload_arduino = upload_arduino,
-  check_arduino_boards = check_arduino_boards,
 
   compile_stm32 = compile_stm32,
   build_stm32 = build_stm32,
