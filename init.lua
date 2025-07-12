@@ -25,6 +25,6 @@ opt.termguicolors = true
 opt.scrolloff = 5
 opt.foldlevelstart = 99
 opt.timeoutlen = 600
-
+opt.splitright = true
 require("reiko.lazy")
 require("reiko.core")

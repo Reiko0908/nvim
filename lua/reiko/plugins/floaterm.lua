@@ -21,7 +21,6 @@ return {
     end, {desc = "[F]loat[T]erm [N]ew", silent = true})
 
     vim.keymap.set("n", "<leader>ftc", ":FloatermKill!<CR>", {desc = "[F]loat[T]erm [C]ollapse", silent = true})
-
     vim.keymap.set("t", "<C-]>", "<C-\\><C-n>:FloatermNext<CR>", {silent = true})
 
     vim.keymap.set("t", "<C-A-Right><C-A-Right>", "<C-\\><C-n>:FloatermUpdate --wintype=vsplit --position=botright --width=0.3<CR>", {silent = true})

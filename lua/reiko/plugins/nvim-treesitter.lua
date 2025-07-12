@@ -1,5 +1,7 @@
 return {
-  'nvim-treesitter/nvim-treesitter' , 
+  'nvim-treesitter/nvim-treesitter',
+  branch = 'master',
+  lazy = false,
   run= ":TSUpdate",
   event = "VeryLazy",
   config = function()

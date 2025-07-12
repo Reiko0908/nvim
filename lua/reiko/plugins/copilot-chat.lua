@@ -2,7 +2,7 @@ return {
   "CopilotC-Nvim/CopilotChat.nvim",
   branch = "main",
   cmd = "CopilotChat",
-  model = 'claude-3.5-sonnet',
+  model = 'claude-sonnet-4',
   agent = 'copilot',
   dependencies = {
       { "github/copilot.vim" }, -- or zbirenbaum/copilot.lua
@@ -25,6 +25,20 @@ return {
       },
     }
   end,
+  window = {
+    layout   = "float",
+    relative = "editor",
+    width    = math.floor(vim.o.columns * 0.3),
+    height   = math.floor(vim.o.lines * 0.6),
+    row      = 1,
+    col      = vim.o.columns - math.floor(vim.o.columns * 0.3),
+    border   = "rounded",
+    title    = "Copilot Chat",
+  },
+  sticky = {
+    '@models Using Claude Sonnet 4',
+    '#files',
+  },
   mappings = {
     complete = {
       insert = '<Tab>',
@@ -89,8 +103,8 @@ return {
     },
     {
       "<leader>zx",
-      ":CopilotChatClear<CR>",
-      desc = "Clear (CopilotChat)",
+      ":CopilotChatReset<CR>",
+      desc = "Reset (CopilotChat)",
       mode = { "n", "v" },
     },
     {
@@ -174,36 +188,6 @@ return {
     ":CopilotChatCommit<CR>",
     desc = "Generate Commit for Selection",
     mode = { "v" },
-  },
-  {
-    "<leader>zn",
-    ":CopilotChatRename<CR>",
-    desc = "Rename the variable",
-    mode = { "v" },
-  },
-  {
-    "<leader>zl",
-    ":CopilotChatList<CR>",
-    desc = "List all the available commands",
-    mode = { "n", "v" },
-  },
-  {
-    "<leader>zh",
-    ":CopilotChatHelp<CR>",
-    desc = "Show help",
-    mode = { "n", "v" },
-  },
-  {
-    "<leader>zw",
-    ":CopilotChatWiki<CR>",
-    desc = "Open Wiki",
-    mode = { "n", "v" },
-  },
-  {
-    "<leader>zd",
-    ":CopilotChatDebug<CR>",
-    desc = "Debug",
-    mode = { "n", "v" },
   },
   {
     "<leader>z?",

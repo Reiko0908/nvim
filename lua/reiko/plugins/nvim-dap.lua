@@ -16,49 +16,49 @@ return {
     require("nvim-dap-virtual-text").setup({
       commented = true, -- Show virtual text alongside comment
     })
-    dap.adapters.lldb = {
+
+    dap.adapters.gdb = {
       type = "executable",
-      command = "lldb-dap",
-      name = "lldb" 
+      command = "gdb",
+      args = { "--interpreter=dap", "--eval-command", "set print pretty on" }
     }
 
     -- Configuration for C++ LLDB DAP
     dap.configurations.cpp = {
       {
         name = "Launch",
-        type = "lldb",
+        type = "gdb",
         request = "launch",
         program = function()
           return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
         end,
         cwd = "${workspaceFolder}",
-        stopOnEntry = false,
-        args = {}, -- Pass command line arguments to the program here
+        stopAtBeginningOfMainSubprogram = false,
       },
       {
-        name = "Attach to process",
-        type = "lldb",
+        name = "Select and attach to process",
+        type = "gdb",
         request = "attach",
-        pid = require('dap.utils').pick_process,
-        args = {},
-      },
-      {
-        name = "Attach to LLDB server",
-        type = "lldb",
-        request = "attach",
-        host = function()
-          return vim.fn.input('Host [localhost]: ', 'localhost')
-        end,
-        port = function()
-          return tonumber(vim.fn.input('Port [1234]: ', '1234'))
-        end,
         program = function()
           return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
         end,
-        cwd = "${workspaceFolder}",
+        pid = function()
+          local name = vim.fn.input('Executable name (filter): ')
+          return require("dap.utils").pick_process({ filter = name })
+        end,
+        cwd = '${workspaceFolder}'
       },
-
-    }
+      {
+        name = 'Attach to gdbserver :1234',
+        type = 'gdb',
+        request = 'attach',
+        target = 'localhost:1234',
+        program = function()
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        cwd = '${workspaceFolder}'
+      },
+    }  
     dap.adapters.python = {
       type = 'executable',
       command = 'python',

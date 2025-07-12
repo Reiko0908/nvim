@@ -5,13 +5,24 @@ return {
     'MunifTanjim/nui.nvim',
     'rcarriga/nvim-notify',
   },
-  opts = {
+  opts = { 
     lsp = {
       override = {
         ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
         ["vim.lsp.util.stylize_markdown"] = true,
         ["cmp.entry.get_documentation"] = true,
       },
+    },
+    messages = {
+      enabled = true, -- Enables message UI
+      view = "mini", -- Uses a smaller message display
+    },
+    notify = {
+      enabled = true,
+      view = "notify",
+    },
+    hover = {
+      enabled = false
     },
     routes = {
       {
