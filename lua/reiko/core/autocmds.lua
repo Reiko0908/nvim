@@ -34,3 +34,14 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     end
   end,
 })
+
+-- Move cursor to end of yanked text
+vim.api.nvim_create_autocmd("TextYankPost", {
+  callback = function()
+    local event = vim.v.event
+    if event.operator == 'y' and (event.regname == '' or event.regname == '"') then
+      local end_pos = vim.fn.getpos("']")
+      vim.api.nvim_win_set_cursor(0, { end_pos[2], end_pos[3] - 1 })
+    end
+  end,
+})

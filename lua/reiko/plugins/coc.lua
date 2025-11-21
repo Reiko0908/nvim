@@ -2,6 +2,7 @@ return {
   'neoclide/coc.nvim',
   branch = 'release',
   event = "VeryLazy",
+  -- enabled = false,
   config =  function()
     vim.opt.backup = false
     vim.opt.writebackup = false
