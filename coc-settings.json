@@ -31,5 +31,23 @@
     "typeParameter": "\uf728",
     "default": "\uf29c"
   },
-  "clangd.path": "~\\AppData\\Local\\coc\\extensions\\coc-clangd-data\\install\\19.1.2\\clangd_19.1.2\\bin\\clangd.exe"
+  "clangd.path": "C:\\Users\\Reiko\\AppData\\Local\\coc\\extensions\\coc-clangd-data\\install\\19.1.2\\clangd_19.1.2\\bin\\clangd.exe",
+
+  "languageserver": {
+    "R": {
+      "enable": true,
+      "command": "D:\\Software\\R-4.5.1\\bin\\R.exe",
+      "args": [
+        "--slave",
+        "-e",
+        "languageserver::run()"
+      ],
+      "filetypes": [
+        "r",
+        "rmd",
+        "R"
+      ]
+    }
+  }
 }
+

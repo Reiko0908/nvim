@@ -1,3 +1,4 @@
+vim.loader.enable()
 local o = vim.o
 local opt = vim.opt
 
