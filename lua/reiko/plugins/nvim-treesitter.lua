@@ -11,15 +11,17 @@ return {
       },
       indent = {
         enable = true
-      },  
+      },
       ensure_installed = {
         "c",
         "lua",
         "vim",
         "markdown",
         "python",
-        "rnoweb", 
+        "rnoweb",
         "yaml",
+        "java",
+        "sql",
       },
     })
     require 'nvim-treesitter.install'.compilers = { "clang", "gcc" }

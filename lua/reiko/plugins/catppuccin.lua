@@ -16,29 +16,25 @@ return {
         solid = true, -- use solid styling for floating windows, see |winborder|
       },
       show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
-      term_colors = false, -- sets terminal colors (e.g. `g:terminal_color_0`)
+      term_colors = true, -- sets terminal colors (e.g. `g:terminal_color_0`)
       dim_inactive = {
         enabled = false, -- dims the background color of inactive window
         shade = "dark",
         percentage = 0.15, -- percentage of the shade to apply to the inactive window
       },
-      no_italic = false, -- Force no italic
-      no_bold = false, -- Force no bold
-      no_underline = false, -- Force no underline
-      styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
-        comments = { "italic" }, -- Change the style of comments
+      styles = {
+        comments = { "italic" },
         conditionals = { "italic" },
         loops = {},
-        functions = {},
-        keywords = {},
+        functions = { "bold" },
+        keywords = { "bold" },
         strings = {},
         variables = {},
         numbers = {},
-        booleans = {},
+        booleans = { "bold" },
         properties = {},
-        types = {},
+        types = { "bold" },
         operators = {},
-        -- miscs = {}, -- Uncomment to turn off hard-coded styles
       },
       color_overrides = {},
       custom_highlights = {},
@@ -53,10 +49,28 @@ return {
           enabled = true,
           indentscope_color = "",
         },
+        telescope = {
+          enabled = true,
+        },
+        mason = true,
         -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
       },
+      native_lsp = {
+        enabled = true,
+        virtual_text = {
+          errors = { "italic" },
+          hints = { "italic" },
+          warnings = { "italic" },
+          information = { "italic" },
+        },
+        underlines = {
+          errors = { "underline" },
+          hints = { "underline" },
+          warnings = { "underline" },
+          information = { "underline" },
+        },
+      },
     })
-
     vim.cmd.colorscheme "catppuccin"
   end,
 }
