@@ -1,31 +1,33 @@
 return {
-  "nvim-treesitter/nvim-treesitter",
-  enabled = true,
-  build = ":TSUpdate",
-  event = { "BufReadPre", "BufNewFile"},
-  config = function () 
-    require("nvim-treesitter.configs").setup({
-      highlight = {
-        enable = true,
-        -- additional_vim_regex_highlighting = false,
-      },
-      indent = {
-        enable = true
-      },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    event = { "BufReadPost", "BufNewFile" },
+
+    opts = {
       ensure_installed = {
         "c",
         "lua",
         "vim",
         "markdown",
         "python",
-        "rnoweb",
         "yaml",
-        "java",
-        "sql",
       },
-    })
-    require 'nvim-treesitter.install'.compilers = { "clang", "gcc" }
-    vim.wo.foldmethod = 'expr'
-    vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-  end
+      highlight = { enable = true },
+      indent = { enable = true },
+    },
+
+    config = function(_, opts)
+      -- ✅ FIX: Use the new main module instead of .configs
+      require("nvim-treesitter").setup(opts)
+
+      -- set compilers
+      require("nvim-treesitter.install").compilers = { "clang", "gcc" }
+
+      -- folding (safe)
+      vim.opt.foldmethod = "expr"
+      vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()" -- Modern way to do TS folding
+      vim.opt.foldlevel = 99
+    end,
+  },
 }

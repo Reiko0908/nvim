@@ -1,47 +1,78 @@
-vim.api.nvim_create_augroup('comment_string', { clear = true })
+-- =========================================
+-- 🧠 AUTOCMDS (Clean + Modern + Safe)
+-- =========================================
 
-vim.api.nvim_create_autocmd({"FileType"}, {
-  pattern = {"c", "h", "cpp", "arduino"},
-  callback = function()
-    vim.api.nvim_buf_set_option(0, "commentstring", "// %s")
-  end,
-  group = "comment_string"
-})
+-- Helper for augroups
+local function augroup(name)
+  return vim.api.nvim_create_augroup("reiko_" .. name, { clear = true })
+end
 
-vim.api.nvim_create_autocmd({"FileType"}, {
-  pattern = {"python"},
+-- =========================================
+-- 💬 Comment string per filetype
+-- =========================================
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup("comment_string"),
   callback = function()
-    vim.api.nvim_buf_set_option(0, "commentstring", "# %s")
-  end,
-  group = "comment_string"
-})
+    local ft = vim.bo.filetype
 
-vim.api.nvim_create_autocmd({"FileType"}, {
-  pattern = {"lua"},
-  callback = function()
-    vim.api.nvim_buf_set_option(0, "commentstring", "-- %s")
-  end,
-  group = "comment_string"
-})
+    local comment_map = {
+      c = "// %s",
+      h = "// %s",
+      cpp = "// %s",
+      arduino = "// %s",
+      python = "# %s",
+      lua = "-- %s",
+    }
 
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  callback = function()
-    if require("nvim-treesitter.parsers").has_parser() then
-      vim.opt.foldmethod = "expr"
-      vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-    else
-      vim.opt.foldmethod = "syntax"
+    if comment_map[ft] then
+      vim.bo.commentstring = comment_map[ft]
     end
   end,
 })
 
--- Move cursor to end of yanked text
+-- =========================================
+-- 🌲 Treesitter folding (modern + safe)
+-- =========================================
+vim.api.nvim_create_autocmd("BufReadPost", {
+  group = augroup("folding"),
+  callback = function()
+    local ok = pcall(vim.treesitter.get_parser, 0)
+
+    if ok then
+      vim.opt_local.foldmethod = "expr"
+      vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+      vim.opt_local.foldlevel = 99
+      vim.opt_local.foldenable = true
+    else
+      vim.opt_local.foldmethod = "syntax"
+    end
+  end,
+})
+
+-- =========================================
+-- ✂️ Move cursor to end after yank
+-- =========================================
 vim.api.nvim_create_autocmd("TextYankPost", {
+  group = augroup("yank_cursor"),
   callback = function()
     local event = vim.v.event
-    if event.operator == 'y' and (event.regname == '' or event.regname == '"') then
+
+    if event.operator == "y" and (event.regname == "" or event.regname == '"') then
       local end_pos = vim.fn.getpos("']")
       vim.api.nvim_win_set_cursor(0, { end_pos[2], end_pos[3] - 1 })
     end
+  end,
+})
+
+-- =========================================
+-- ✨ (Optional) Highlight on yank
+-- =========================================
+vim.api.nvim_create_autocmd("TextYankPost", {
+  group = augroup("highlight_yank"),
+  callback = function()
+    vim.highlight.on_yank({
+      higroup = "IncSearch",
+      timeout = 150,
+    })
   end,
 })

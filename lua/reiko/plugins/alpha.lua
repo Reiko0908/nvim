@@ -4,6 +4,7 @@ return {
   config = function()
     local alpha = require("alpha")
     local dashboard = require('alpha.themes.dashboard')
+    
     dashboard.section.header.val = {
       [[⣿⣿⢟⣩⡬⠔⠼⣆⢸⣿⣿⣿⣿⢏⡾⠙⠻⠿⠿⢿⣿⣿⣿⡿⠻⣿⣿⣿⣿⣿]],
       [[⢏⣴⠟⣩⣾⣿⠷⣊⣘⠻⣯⣭⣥⣬⣤⣭⣬⣀⡂⠘⠿⠟⣋⣴⠇⣿⣿⣿⣿⣿]],
@@ -21,31 +22,29 @@ return {
       [[⣿⣧⠸⠹⡃⢠⣿⣿⠟⣥⣥⣿⣷⣶⢆⡉⢥⠀⣿⣿⣿⣟⢋⡥⢞⣴⣿⣿⣿⣿]],
       [[⣿⣿⣦⣥⣬⠸⣿⣿⣜⣛⡋⢀⣿⣧⣙⡡⠗⣠⣿⡿⠿⠋⣨⣴⣿⣿⣿⣿⣿⣿]],
     }    
+
     dashboard.section.buttons.val = {
-      dashboard.button( "q", "❌  Quit NVIM" , ":qa<CR>"),
+      dashboard.button("q", "❌  Quit NVIM", ":qa<CR>"),
       dashboard.button("n", "🔨  Create new project", ":NewProject<CR>"),
 
-      dashboard.button("",""), -- For some spacing
+      dashboard.button("", ""),
 
-      dashboard.button("d", "💿  Open D drive", ":silent Telescope file_browser path=D:/<CR>"),
-      dashboard.button("p", "📂  Open Project folder", ":silent Telescope file_browser path=D:/Project<CR>"),
-      dashboard.button("u", "📂  Open University folder", ":silent Telescope file_browser path=D:/University<CR>"),
+      -- Changed D:/ to ~/ (Home directory) or your specific mount point
+      dashboard.button("d", "💿  Open Home", ":silent Telescope file_browser path=~/<CR>"),
+      dashboard.button("p", "📂  Open Projects", ":silent Telescope file_browser path=~/Projects<CR>"),
+      dashboard.button("u", "📂  Open University", ":silent Telescope file_browser path=~/University<CR>"),
 
-      dashboard.button("",""), -- For some spacing
+      dashboard.button("", ""),
 
-      dashboard.button("D", "🔍  Search in D drive", ":silent Telescope find_files cwd=D:/<CR>"),
-      dashboard.button("P", "🔍  Search in Project folder", ":silent Telescope find_files cwd=D:/Project<CR>"),
-      dashboard.button("U", "🔍  Search in University folder", ":silent Telescope find_files cwd=D:/University<CR>"),
+      dashboard.button("D", "🔍  Search in Home", ":silent Telescope find_files cwd=~/<CR>"),
+      dashboard.button("P", "🔍  Search in Projects", ":silent Telescope find_files cwd=~/Projects<CR>"),
+      dashboard.button("U", "🔍  Search in University", ":silent Telescope find_files cwd=~/University<CR>"),
 
-      dashboard.button("",""), -- For some spacing
-
-      -- dashboard.button("SPC f o", "💾  Recently opened files"),
-      -- dashboard.button("SPC v c", "⚙  Vim config"),
-      -- dashboard.button("SPC c s", "🖍️  Change coloscheme"),
+      dashboard.button("", ""),
 
       dashboard.button("o", "💾  Recently opened files", function()
         local builtin = require('telescope.builtin')
-        if vim.g.oldfiles_first_time then -- ensure CD into the file in first open
+        if vim.g.oldfiles_first_time then
           builtin.oldfiles({
             attach_mappings = function(prompt_bufnr, map)
               local actions = require('telescope.actions')
@@ -65,16 +64,20 @@ return {
           builtin.oldfiles()
         end
       end),
-      dashboard.button("c", "⚙   Vim config", ":silent Telescope find_files cwd=C:/Users/Reiko/AppData/Local/nvim<CR>"),
-      dashboard.button("w", "⚙   Wezterm config", ":silent Telescope find_files cwd=C:/Users/Reiko/.config<CR>"),
-      dashboard.button("r", "🗑️  Delete shada", ":!del C:\\Users\\Reiko\\AppData\\Local\\nvim-data\\shada /Q<CR>"),
-      dashboard.button("a", "🗑️  Delete swap", ":!del C:\\Users\\Reiko\\AppData\\Local\\nvim-data\\swap /Q<CR>"),
+
+      -- Linux Config Paths
+      dashboard.button("c", "⚙   Vim config", ":silent Telescope find_files cwd=~/.config/nvim<CR>"),
+      dashboard.button("w", "⚙   Terminal config", ":silent Telescope find_files cwd=~/.config<CR>"),
+      
+      -- Linux delete commands (rm -rf) and data paths
+      dashboard.button("r", "🗑️  Delete shada", ":!rm -rf ~/.local/state/nvim/shada/*<CR>"),
+      dashboard.button("a", "🗑️  Delete swap", ":!rm -rf ~/.local/state/nvim/swap/*<CR>"),
+      
       dashboard.button("t", "🖍️  Change theme", ":silent Telescope colorscheme<CR>"),
     }
-    -- Send config to alpha
+
     alpha.setup(dashboard.opts)
 
-    -- Disable folding on alpha buffer
     vim.cmd([[autocmd FileType alpha setlocal nofoldenable]])
   end,
 }

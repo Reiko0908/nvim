@@ -23,7 +23,7 @@ return {
   {
     "williamboman/mason-lspconfig.nvim",
     opts = {
-      ensure_installed = { "lua_ls", "clangd", "pyright", "jdtls" },
+      ensure_installed = { "lua_ls", "clangd", "pyright" },
       auto_install = true,
     },
   },
