@@ -4,7 +4,7 @@ local opt = vim.opt
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = " "
-
+vim.deprecate = function() end
 o.showtabline = 1
 
 opt.backspace = '2'

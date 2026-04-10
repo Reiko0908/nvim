@@ -23,7 +23,7 @@ return {
   {
     "williamboman/mason-lspconfig.nvim",
     opts = {
-      ensure_installed = { "lua_ls", "clangd", "pyright", "jdtls" },
+      ensure_installed = { "lua_ls", "clangd", "pyright", "bashls", "jdtls" },
       auto_install = true,
     },
   },
@@ -91,7 +91,7 @@ return {
       })
 
       vim.lsp.enable("lua_ls")
-      local servers = {"clangd", "pyright"}
+      local servers = {"clangd", "pyright","bashls"}
       -- Setup handlers
       for _, server in ipairs(servers) do
         -- Inject capabilities into the native config
